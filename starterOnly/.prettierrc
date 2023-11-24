@@ -1,0 +1,16 @@
+{
+  "singleQuote": true,
+  "printWidth": 80,
+  "overrides": [
+    {
+      "files": ["**/*.html"],
+      "options": {
+        "printWidth": 150,
+        "htmlWhitespaceSensitivity": "ignore",
+        "proseWrap": "always",
+        "jsxBracketSameLine": true,
+        "htmlSelfClosingTags": false
+      }
+    }
+  ]
+}
