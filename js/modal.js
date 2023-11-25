@@ -28,6 +28,9 @@ modalBtn.forEach((btn) =>
 // Ouverture de la modal
 const launchModal = () => {
   modalbg.style.display = 'block';
+  const heroSection = document.querySelector('body');
+  heroSection.style.overflow = 'hidden';
+  window.scrollTo(0, 0);
 }
 
 // Event de la fermeture de la modal
@@ -38,6 +41,8 @@ closeEvent.addEventListener('click', () => {
 // Fermeture de la modal
 const closeModal = () => {
   modalbg.style.display = 'none';
+  const heroSection = document.querySelector('body');
+  heroSection.style.overflow = 'scroll';
 };
 
 // Bouton de fermeture de la modal après confirmation d'envoi du formulaire, appel de clearForm
