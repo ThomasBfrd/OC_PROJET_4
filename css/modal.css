@@ -189,6 +189,10 @@ input {
   outline: none;
 }
 
+input[type=date] {
+  font-family: var(--font-default);
+}
+
 .valid-input {
   padding: 8px;
   outline: 3px solid #279e7a;
@@ -518,6 +522,7 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+
 
 @media screen and (max-width: 1280px) {
 
