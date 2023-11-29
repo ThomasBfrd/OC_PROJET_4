@@ -116,7 +116,7 @@ const submitForm = () => {
 const validFirstName = () => {
   const firstName = document.querySelector('#firstName');
   const regexFirstLastName = /^[a-zA-Z0-9_ \s'-]{2,}$/g;
-  // Effacer le message d'erreur
+
   if (regexFirstLastName.test(firstName.value)) {
     displayErrorMessage('firstnameError', "", "firstName");
     successInput('firstName');
@@ -241,13 +241,10 @@ const validConditionsGenerales = () => {
 const displayErrorMessage = (elementId, message, input) => {
   const element = document.querySelector(`.${elementId}`);
   if (element) {
-    if (element.hasAttribute('valid-input')) {
     const clearValidedInput = document.querySelector(`#${input}`);
     clearValidedInput.classList.remove('valid-input');
     element.textContent = message;
   }
-  element.textContent = message;
-}
 }
 
 // Ajout de la classe valid-input si l'input ciblé a des données valides
