@@ -242,8 +242,12 @@ const displayErrorMessage = (elementId, message, input) => {
   const element = document.querySelector(`.${elementId}`);
   if (element) {
     const clearValidedInput = document.querySelector(`#${input}`);
-    clearValidedInput.classList.remove('valid-input');
-    element.textContent = message;
+    if (clearValidedInput) {
+      if (clearValidedInput.classList.contains('valid-input')) {
+        clearValidedInput.classList.remove('valid-input');
+      }
+      element.textContent = message;
+    }
   }
 }
 
