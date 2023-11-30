@@ -248,6 +248,7 @@ const displayErrorMessage = (elementId, message, input) => {
       }
       element.textContent = message;
     }
+    element.textContent = message;
   }
 }
 
