@@ -76,8 +76,8 @@ submit.addEventListener('click', (event) => {
 
 // Vérification du formulaire, si les données sont valides, on appelle submitForm
 const validForm = () => {
-  let firstNameValue = validFirstName();
-  let lastNameValue = validLastName();
+  let firstNameValue = validString('firstName');
+  let lastNameValue = validString('lastName');
   let emailValue = validEmail();
   let birthdateValue = validBirthDate();
   let quantityValue = validNumber();
@@ -112,34 +112,19 @@ const submitForm = () => {
 };
 
 
-// Vérifie si le nom et prénom sont supérieurs ou égaux à 2 caractères, et si les valeurs ne sont pas nulles
-const validFirstName = () => {
-  const firstName = document.querySelector('#firstName');
-  const regexFirstLastName = /^[a-zA-Z0-9_ \s'-]{2,}$/g;
+// Vérifie si le prénom et nom match avec la regex, et si les valeurs ne sont pas nulles
+const validString = (elementId) => {
+  const inputId = document.querySelector(`#${elementId}`);
+  const regexFirstLastName = /^([a-zA-Zà-üÀ-Ü0-9_ \s'-]){2,}$/g;
 
-  if (regexFirstLastName.test(firstName.value)) {
-    displayErrorMessage('firstName', "");
-    successInput('firstName');
+  if (regexFirstLastName.test(inputId.value)) {
+    displayErrorMessage(elementId, '');
+    successInput(elementId);
+
     return true;
   }
 
-  displayErrorMessage('firstName', "Prénom saisi invalide");
-
-  return false;
-};
-
-// Vérifie si le nom et prénom sont supérieurs ou égaux à 2 caractères, et si les valeurs ne sont pas nulles
-const validLastName = () => {
-  const lastName = document.querySelector('#lastName');
-  const regexFirstLastName = /^[a-zA-Z0-9_ \s'-]{2,}$/g;
-  
-  if (regexFirstLastName.test(lastName.value)) {
-    displayErrorMessage('lastName', "");
-    successInput('lastName');
-    return true;
-  }
-
-  displayErrorMessage('lastName', "Nom saisi invalide");
+  displayErrorMessage(elementId, 'Nom saisi invalide');
 
   return false;
 };
@@ -280,13 +265,13 @@ const clearAllSuccessInput = () => {
 // Récupération et validation de l'input text au focus out
 const firstnameField = document.querySelector('#firstName');
 firstnameField.addEventListener('focusout', () => {
-  validFirstName();
+  validString('firstName');
 });
 
 // Récupération et validation de l'input text au focus out
 const lastnameField = document.querySelector('#lastName');
 lastnameField.addEventListener('focusout', () => {
-  validLastName();
+  validString('lastName');
 });
 
 // Récupération et validation de l'input text au focus out
