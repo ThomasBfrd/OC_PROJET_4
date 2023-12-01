@@ -195,8 +195,8 @@ input[type=date] {
 
 .valid-input {
   padding: 8px;
-  outline: 3px solid #279e7a;
-  outline-offset: -5px;
+  outline: 2px solid #279e7a;
+  outline-offset: -0px;
   background-color: #dbfcf2;
 }
 

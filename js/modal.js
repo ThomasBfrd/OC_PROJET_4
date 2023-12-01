@@ -145,19 +145,20 @@ const validEmail = () => {
   return false;
 };
 
-// Vérifie si la date de naissance match avec le regex
+// Valide le birthdate si la personne à moins de 100 ans et si elle a plus de 18 ans
 const validBirthDate = () => {
   const birthdate = document.querySelector('#birthdate');
   const formatDate = new Date(birthdate.value);
-  // Formate la date au format FR
-  const formattedDate = formatDate.toLocaleDateString("fr-FR", {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  });
-  const birthdateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
-  if (birthdateRegex.test(formattedDate)) {
+  const today = new Date();
+  today.setFullYear(today.getFullYear() - 18);
+
+  const old = new Date();
+  old.setFullYear(old.getFullYear() - 100);
+
+
+  if (formatDate > old && formatDate < today) {
+
     displayErrorMessage('birthdate', '');
     successInput('birthdate');
     return true;
