@@ -118,12 +118,12 @@ const validFirstName = () => {
   const regexFirstLastName = /^[a-zA-Z0-9_ \s'-]{2,}$/g;
 
   if (regexFirstLastName.test(firstName.value)) {
-    displayErrorMessage('firstnameError', "", "firstName");
+    displayErrorMessage('firstName', "");
     successInput('firstName');
     return true;
   }
 
-  displayErrorMessage('firstnameError', "Prénom saisi invalide", "firstName");
+  displayErrorMessage('firstName', "Prénom saisi invalide");
 
   return false;
 };
@@ -134,12 +134,12 @@ const validLastName = () => {
   const regexFirstLastName = /^[a-zA-Z0-9_ \s'-]{2,}$/g;
   
   if (regexFirstLastName.test(lastName.value)) {
-    displayErrorMessage('lastnameError', "", "lastName");
+    displayErrorMessage('lastName', "");
     successInput('lastName');
     return true;
   }
 
-  displayErrorMessage('lastnameError', "Nom saisi invalide", "lastName");
+  displayErrorMessage('lastName', "Nom saisi invalide");
 
   return false;
 };
@@ -147,15 +147,15 @@ const validLastName = () => {
 // Vérifie si l'email match avec le regex
 const validEmail = () => {
   const email = document.querySelector('#email');
-  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/g;
+  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/g;
 
   if (regexEmail.test(email.value)) {
-    displayErrorMessage('emailError', "", "email");
+    displayErrorMessage('email', '');
     successInput('email');
     return true;
   }
 
-  displayErrorMessage('emailError', "Email saisi invalide", "email");
+  displayErrorMessage('email', 'Email saisi invalide');
 
   return false;
 };
@@ -173,12 +173,12 @@ const validBirthDate = () => {
   const birthdateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
   if (birthdateRegex.test(formattedDate)) {
-    displayErrorMessage('birthdateError', "", "birthdate");
+    displayErrorMessage('birthdate', '');
     successInput('birthdate');
     return true;
   }
 
-  displayErrorMessage('birthdateError', "Date de naissance non valide", "birthdate");
+  displayErrorMessage('birthdate', 'Date de naissance non valide');
 
   return false;
 };
@@ -189,15 +189,14 @@ const validNumber = () => {
   const quantityRegex = /^(0|[1-9][0-9]?)$/;
 
   if (quantityRegex.test(quantity.value)) {
-    displayErrorMessage('quantityError', "", "quantity");
+    displayErrorMessage('quantity', '');
     successInput('quantity');
     return true;
-
   }
 
-    displayErrorMessage('quantityError', "Veuillez saisir un nombre valide", "quantity");
+  displayErrorMessage('quantity', 'Veuillez saisir un nombre valide');
 
-    return false;
+  return false;
 };
 
 // Vérifie si un bouton est sélectionné, et retourne la valeur du bouton
@@ -213,13 +212,13 @@ const validRadioInput = () => {
   });
 
   if (checkValue) {
-    displayErrorMessage('locationError', "");
+    displayErrorMessage('location', '');
     return true;
   }
 
-    displayErrorMessage('locationError', "Veuillez sélectionner une localisation");
+  displayErrorMessage('location', 'Veuillez sélectionner une localisation');
 
-    return false;
+  return false;
 };
 
 // Vérifie si les conditions générales sont true ou false
@@ -227,30 +226,38 @@ const validConditionsGenerales = () => {
   const conditionsGenerales = document.querySelector('#checkbox1');
 
   if (conditionsGenerales.checked) {
-    displayErrorMessage('acceptError', "");
+    displayErrorMessage('checkbox1', '');
     return true;
   }
 
-    displayErrorMessage('acceptError', "Veuillez accepter les conditions d'utilisateur");
+  displayErrorMessage(
+    'checkbox1',
+    "Veuillez accepter les conditions d'utilisateur"
+  );
 
-    return false;
+  return false;
 };
 
-// Fonction qui gère les messages d'erreur avec 3 paramètres (elementId qui correspond à la classe erreur de l'input ciblé,
-// message qui correspond au message distribué, et input qui correspond à l'input ciblé pour vérifier si un success est présent ou non)
-const displayErrorMessage = (elementId, message, input) => {
-  const element = document.querySelector(`.${elementId}`);
-  if (element) {
-    const clearValidedInput = document.querySelector(`#${input}`);
-    if (clearValidedInput) {
-      if (clearValidedInput.classList.contains('valid-input')) {
-        clearValidedInput.classList.remove('valid-input');
+// Ajout du message du data-error et passe la visibilité en true
+// Si la classe valid-input est présente, alors on la supprime pour afficher le data-error
+const displayErrorMessage = (inputId, message) => {
+  const inputElement = document.querySelector(`#${inputId}`);
+  if (inputElement) {
+    const parentDiv = inputElement.closest('div');
+    parentDiv.setAttribute('data-error', message);
+
+    if (message) {
+      if (inputElement.classList.contains('valid-input')) {
+        inputElement.classList.remove('valid-input');
       }
-      element.textContent = message;
+
+      parentDiv.setAttribute('data-error-visible', 'true');
+    } else {
+      
+      parentDiv.removeAttribute('data-error-visible');
     }
-    element.textContent = message;
   }
-}
+};
 
 // Ajout de la classe valid-input si l'input ciblé a des données valides
 const successInput = (elementId) => {

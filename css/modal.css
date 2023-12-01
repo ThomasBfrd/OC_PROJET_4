@@ -209,6 +209,25 @@ input[type=date] {
   height: 48px;
 }
 
+.formData[data-error]::after {
+  content: attr(data-error);
+  font-size: 0.75em;
+  color: #e54858;
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-left: 7px;
+  text-align: left;
+  opacity: 0;
+  transition: 0.3s;
+}
+.formData[data-error-visible="true"]::after {
+  opacity: 1;
+}
+.formData[data-error-visible="true"] .text-control {
+  border: 2px solid #e54858;
+}
+
 .error {
   color: #e54858;
   font-size: 0.75em;
